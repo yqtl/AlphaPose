@@ -681,6 +681,7 @@ def write_json(all_results, outputpath, form=None, for_eval=False, outputfile='a
                 keypoints.append(float(kp_preds[n, 0]))
                 keypoints.append(float(kp_preds[n, 1]))
                 keypoints.append(float(kp_scores[n]))
+            #import ipdb; ipdb.set_trace()
             result['keypoints'] = keypoints
             result['score'] = float(pro_scores)
             if 'box' in human.keys():
@@ -694,6 +695,12 @@ def write_json(all_results, outputpath, form=None, for_eval=False, outputfile='a
                 pred_xyz_jts = human['pred_xyz_jts']
                 pred_xyz_jts = pred_xyz_jts.cpu().numpy().tolist()
                 result['pred_xyz_jts'] = pred_xyz_jts
+                
+
+            if 'transl' in human.keys():
+                transl = human ['transl']
+                transl = transl.cpu().numpy().tolist()
+                result['transl'] = transl
 
             if form == 'cmu': # the form of CMU-Pose
                 if result['image_id'] not in json_results_cmu.keys():

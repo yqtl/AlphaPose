@@ -108,6 +108,9 @@ class DataWriterSMPL():
                 uv_29 = smpl_output['pred_uvd_jts'].reshape(-1, 29, 3)[:, :, :2].cpu()
                 pred_xyz_jts_24 = smpl_output['pred_xyz_jts_24'].reshape(-1, 24, 3).cpu()
 
+                # Extract the 'transl' attribute from smpl_output
+                transl = smpl_output['transl'].reshape(-1, 3).cpu()
+
                 pose_coords = uv_29 * (cropped_boxes[:, [2], None] - cropped_boxes[:, [0], None])
                 pose_coords[:, :, 0] = pose_coords[:, :, 0] + (cropped_boxes[:, [0]] + cropped_boxes[:, [2]]) / 2
                 pose_coords[:, :, 1] = pose_coords[:, :, 1] + (cropped_boxes[:, [1]] + cropped_boxes[:, [3]]) / 2
@@ -133,7 +136,8 @@ class DataWriterSMPL():
                             # xywh
                             'box': [boxes[k][0], boxes[k][1], boxes[k][2]-boxes[k][0],boxes[k][3]-boxes[k][1]],
                             # xywh
-                            'crop_box': [cropped_boxes[k][0], cropped_boxes[k][1], cropped_boxes[k][2]-cropped_boxes[k][0],cropped_boxes[k][3]-cropped_boxes[k][1]] 
+                            'crop_box': [cropped_boxes[k][0], cropped_boxes[k][1], cropped_boxes[k][2]-cropped_boxes[k][0],cropped_boxes[k][3]-cropped_boxes[k][1]],
+                            'transl': transl[k]
                         }
                     )
 
