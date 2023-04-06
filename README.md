@@ -102,6 +102,13 @@ Inference SMPL (Download the SMPL model `basicModel_neutral_lbs_10_207_0_v1.0.0.
 ``` bash
 ./scripts/inference_3d.sh ./configs/smpl/256x192_adam_lr1e-3-res34_smpl_24_3d_base_2x_mix.yaml ${CHECKPOINT} ${VIDEO_NAME} # ${OUTPUT_DIR}, optional
 ```
+Direct call demo_3d_inference.py
+```bash
+python scripts/demo_3d_inference.py --cfg ./configs/smpl/256x192_adam_lr1e-3-res34_smpl_24_3d_base_2x_mix.yaml --checkpoint pretrained_models/pretrained_w_cam.pth --video ${VIDEO_NAME} --outdir ./examples/res --detector yolo --save_video --pose_track --gpus ${GPU_No.}
+```
+```bash
+python scripts/demo_3d_inference.py --cfg ./configs/smpl/256x192_adam_lr1e-3-res34_smpl_24_3d_base_2x_mix.yaml --checkpoint pretrained_models/pretrained_w_cam.pth --image ${IMAGE_NAME}  --outdir ./examples/res --detector yolo --save_img --pose_track --gpus ${GPU_No.}
+```
 For high level API, please refer to `./scripts/demo_api.py`. To enable tracking, please refer to [this page](./trackers).
 
 - **Training**: Train from scratch
